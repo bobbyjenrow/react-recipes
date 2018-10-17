@@ -1,11 +1,12 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './Search.css';
 
-const Search = () => (
-  <div className="search">
-    <input type="text" className="search-input"/>
-    <button className="search-button">Search</button>
-  </div>
-);
+const Search = ({handleSearch}) => {
+  return(
+  <form className="search">
+    <input type="text" className="search-input" onKeyUp={handleSearch}/>
+    <button type="submit" className="search-button">Search</button>
+  </form>
+)};
 
 export default Search;

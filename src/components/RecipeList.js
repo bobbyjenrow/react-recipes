@@ -4,8 +4,6 @@ import './RecipeList.css';
 
 class RecipeList extends Component {
   // TODO::: Switch from react component styles to string class names
-
-
   render() {
     const {recipes} = this.props;
     return (
