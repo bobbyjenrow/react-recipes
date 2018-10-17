@@ -4,6 +4,7 @@ import './App.css';
 import RecipeList from './components/RecipeList'
 import Search from './components/Search'
 
+import NewRecipe from './components/NewRecipe'
 
 // TODO: Add debounce on search & filter
 import debounce from 'lodash/debounce'
@@ -44,7 +45,7 @@ class App extends Component {
           <Search className="search" handleSearch={this.handleChange}/>
           </div>
         </header>
-        {this.state.search}
+        <NewRecipe />
         <RecipeList recipes={this.state.recipes} />
       </div>
     );
