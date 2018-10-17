@@ -1,0 +1,56 @@
+.recipe{
+  max-width: 40rem;
+  margin: 0 auto;
+}
+.recipe-header{
+  width: 100%;
+}
+.recipe-name{
+  text-align: left;
+}
+.recipe-subtitle{
+  text-align: left;
+}
+.recipe-body{
+  width: 100%;
+  display: flex;
+}
+.recipe-instructions{
+  width: 70%;
+  font-size: .85rem;
+}
+.recipe-instructions ol{
+  text-align: left;
+  padding-left: 0;
+}
+.step{
+  padding-left: 1rem;
+  padding-bottom: .5rem;
+}
+.recipe-ingredients{
+  align-self: flex-start;
+  width: 20%;
+  font-size: .85rem;
+  font-weight: bold;
+}
+.recipe-ingredients-list{
+  padding-left: 0;
+}
+.recipe-ingredients-list li{
+  list-style: none;
+}
+.ingredient{
+ display: flex;
+ justify-content: space-between;
+ padding-bottom: .5rem;
+}
+.ingredient-name, .ingredient-amount{
+  margin: 0;
+}
+.recipe-footer{
+  width: 100%;
+}
+.recipe-tags ul{
+  display: flex;
+  justify-content: space-around;
+}
