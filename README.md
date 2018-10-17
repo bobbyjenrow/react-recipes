@@ -2,7 +2,7 @@
 
 Bootstrapped with create-react-app.
 
-TODO: Create content filter based on search bar.
+TODO: Fix Search filter bugs and add debounce.
 
 TODO: Create content filter by tag.
 
