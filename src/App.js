@@ -3,8 +3,14 @@ import logo from './logo.svg';
 import './App.css';
 import RecipeList from './components/RecipeList'
 import Search from './components/Search'
+import { connect } from 'react-redux';
 
+//Components
 import NewRecipe from './components/NewRecipe'
+
+// Redux
+import updateRecipeSearchFilter from './redux/actions/updateRecipeSearchFilter'
+// import fetchRecipes from './redux/actions/fetchRecipes';
 
 // TODO: Add debounce on search & filter
 import debounce from 'lodash/debounce'
@@ -52,4 +58,11 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapDispatchToProps = dispatch => ({
+  updateRecipeSearchFilter: () => dispatch(updateRecipeSearchFilter())
+})
+const mapStateToProps = state => ({
+  ...state
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
