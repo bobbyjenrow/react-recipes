@@ -9,60 +9,53 @@ import { connect } from 'react-redux';
 import NewRecipe from './components/NewRecipe'
 
 // Redux
-import updateRecipeSearchFilter from './redux/actions/updateRecipeSearchFilter'
-// import fetchRecipes from './redux/actions/fetchRecipes';
-
-// TODO: Add debounce on search & filter
-import debounce from 'lodash/debounce'
+import { fetchRecipes } from './redux/actions/Recipe/Fetch'
 
 //Test Data
-import data from "./mocks/recipes.json";
+import data from "./mocks/store.js";
 
 class App extends Component {
-  constructor(){
-    super();
-    this.state = {
-      search: '',
-      recipes: [...data.recipes]
-    };
-    this.recipes = data.recipes;
+  componentDidMount(){
+    this.props.dispatch(fetchRecipes())
+    console.log(this.props.recipes)
   }
   // Defining handleChange as an arrow function
   // binds scope lexically, removing need for
   // this.handleChange.bind(this) in constructor.
-  handleChange = (searchValue)=>{
-    this.setState({search: searchValue.target.value })
-    this.filterRecipes();
-  }
-  filterRecipes = ()=>{
-    // Filters by name property on objects in state.recipes
-    let filteredRecipes = this.recipes.filter(
-      recipe => recipe.name.toLowerCase().includes(this.state.search))
-    // Set State
-    this.setState({recipes: filteredRecipes})
-  }
+  // handleChange = (searchValue)=>{
+  //   this.setState({search: searchValue.target.value })
+  //   this.filterRecipes();
+  // }
+  // filterRecipes = ()=>{
+  //   // Filters by name property on objects in state.recipes
+  //   let filteredRecipes = this.recipes.filter(
+  //     recipe => recipe.name.toLowerCase().includes(this.state.search))
+  //   // Set State
+  //   this.setState({recipes: filteredRecipes})
+  // }
   render() {
     return (
       <div className="App">
         <header className="App-header">
           <div className="inner">
             <h1 className="App-logo">Recipe App</h1>
-
           <Search className="search" handleSearch={this.handleChange}/>
           </div>
         </header>
         <NewRecipe />
-        <RecipeList recipes={this.state.recipes} />
+        <RecipeList recipes={this.props.recipes} />
       </div>
     );
   }
 }
 
-const mapDispatchToProps = dispatch => ({
-  updateRecipeSearchFilter: () => dispatch(updateRecipeSearchFilter())
-})
+// const mapDispatchToProps = dispatch => ({
+//   updateFilter: () => dispatch(updateFilter())
+// })
 const mapStateToProps = state => ({
-  ...state
+  recipes: state.recipes.items,
+  loading: state.recipes.loading,
+  error: state.recipes.error
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps)(App);

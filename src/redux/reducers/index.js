@@ -1,8 +1,8 @@
 import {combineReducers} from 'redux';
-import fetchRecipes from './fetchRecipes';
-import updateRecipeFilter from './updateRecipeFilter';
+import recipes from './Recipes';
+import filters from './Filters';
 
 export default combineReducers({
-  fetchRecipes,
-  updateRecipeFilter
+  recipes,
+  filters
 })

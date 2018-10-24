@@ -11,30 +11,30 @@ class Recipe extends Component {
     return (
       <div className="recipe">
         <div className="recipe-header">
-          <h3 className="recipe-name">
+          <h3 className="header-name">
             {name}
           </h3>
-          <h5 className="recipe-subtitle">
+          <h5 className="header-subtitle">
             {subtitle}
           </h5>
         </div>
         <div className="recipe-body">
-          <div className="recipe-instructions">
+          <div className="body-instructions">
             <ol>
             {instructions.map((step)=><li className="step">{step}</li>)}
           </ol>
           </div>
-          <div className="recipe-ingredients">
-            <ul className="recipe-ingredients-list">
+          <div className="body-ingredients">
+            <ul>
             {ingredients.map((ingredient)=>
               <li>
-                <Ingredient className="ingredient" ingredient={ingredient} />
+                <Ingredient ingredient={ingredient} />
               </li>)}
             </ul>
           </div>
         </div>
         <div className="recipe-footer">
-          <div className="recipe-tags">
+          <div className="footer-tags">
             <ul>
             {
               this.props.recipe.tags.map(
