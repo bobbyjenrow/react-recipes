@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import RecipeList from './components/RecipeList'
-import Search from './components/Search'
+import RecipeList from './material-components/RecipeList'
+import Search from './material-components/Search'
 import { connect } from 'react-redux';
+
+import {AppBar} from '@material-ui/core'
 
 //Components
 import NewRecipe from './components/NewRecipe'
@@ -36,11 +38,14 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500"/>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/>
+        <link rel="stylesheet" href="https://unpkg.com/@material-ui/core/umd/material-ui.development.js"/>
         <header className="App-header">
-          <div className="inner">
+          <AppBar color="primary" className="inner">
             <h1 className="App-logo">Recipe App</h1>
           <Search className="search" handleSearch={this.handleChange}/>
-          </div>
+        </AppBar>
         </header>
         <NewRecipe />
         <RecipeList recipes={this.props.recipes} />

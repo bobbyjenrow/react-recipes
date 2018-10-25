@@ -34,10 +34,15 @@
   font-size: .85rem;
   font-weight: bold;
 }
+.body-ingredients ul{
+  padding-left: 0;
+}
 .body-ingredients li{
   list-style: none;
 }
 .ingredient{
+  display: flex;
+  justify-content: space-around;
 }
 .ingredient-name, .ingredient-amount{
   margin: 0;

@@ -53,7 +53,7 @@ const Ingredient = ({ingredient})=>{
   return(
     <div className="ingredient">
       <p className="ingredient-name">{ingredient.ingredient}</p>
-      <p className="ingredient-amount">{ingredient.amount} {ingredient.units}</p>
+      <p className="ingredient-amount">{ingredient.amount}{ingredient.units}</p>
     </div>
   )
 }
