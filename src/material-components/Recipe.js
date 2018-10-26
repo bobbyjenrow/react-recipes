@@ -30,7 +30,7 @@ class Recipe extends Component {
   render() {
     const {recipe: {name,subtitle,description,ingredients,instructions,tags,author}} = this.props;
     return (
-      <Card raised>
+      <Card raised style={{maxWidth:'40rem'}}>
         <CardHeader title={name} subheader={subtitle}/>
         <CardContent>
           <AppBar color='default' position='relative'>
@@ -54,8 +54,8 @@ class Recipe extends Component {
               </TabContainer>
               <TabContainer>
                 <List>
-                {ingredients.map((ingredient)=>
-                  <ListItem>
+                {ingredients.map((ingredient,index)=>
+                  <ListItem key={index}>
                     <ListItemText primary={`${ingredient.ingredient} - ${ingredient.amount} ${ingredient.units}`} />
                   </ListItem>
                   )}
@@ -63,7 +63,8 @@ class Recipe extends Component {
               </TabContainer>
               <TabContainer>
                   <List>
-                    { instructions.map((instruction)=><ListItem>
+                    { instructions.map((instruction, index)=>
+                      <ListItem key={index}>
                       <ListItemText primary={`${instruction.order + 1}. ${instruction.description}`}/>
                     </ListItem>)}
                   </List>
@@ -80,7 +81,7 @@ class Recipe extends Component {
             <List>
             {
               this.props.recipe.tags.map(
-                (tag)=> <RecipeTag tag={tag} />
+                (tag,index)=> <RecipeTag key={index} tag={tag} />
               )
             }
             </List>

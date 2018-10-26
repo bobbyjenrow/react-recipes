@@ -5,10 +5,17 @@ import RecipeList from './material-components/RecipeList'
 import Search from './material-components/Search'
 import { connect } from 'react-redux';
 
-import {AppBar} from '@material-ui/core'
+import {AppBar,Button} from '@material-ui/core'
+import {createMuiTheme} from '@material-ui/core/styles'
+// const theme = createMuiTheme({
+//   palette: {
+//     primary: blue,
+//
+//   }
+// })
 
 //Components
-import NewRecipe from './components/NewRecipe'
+import NewRecipe from './material-components/NewRecipe'
 
 // Redux
 import { fetchRecipes } from './redux/actions/Recipe/Fetch'
@@ -17,24 +24,23 @@ import { fetchRecipes } from './redux/actions/Recipe/Fetch'
 import data from "./mocks/store.js";
 
 class App extends Component {
+  constructor(){
+    super()
+    this.state = {
+    newRecipeIsVisible: false
+    }
+    this.newRecipe = this.newRecipe.bind(this)
+  }
   componentDidMount(){
     this.props.dispatch(fetchRecipes())
     console.log(this.props.recipes)
   }
-  // Defining handleChange as an arrow function
-  // binds scope lexically, removing need for
-  // this.handleChange.bind(this) in constructor.
-  // handleChange = (searchValue)=>{
-  //   this.setState({search: searchValue.target.value })
-  //   this.filterRecipes();
-  // }
-  // filterRecipes = ()=>{
-  //   // Filters by name property on objects in state.recipes
-  //   let filteredRecipes = this.recipes.filter(
-  //     recipe => recipe.name.toLowerCase().includes(this.state.search))
-  //   // Set State
-  //   this.setState({recipes: filteredRecipes})
-  // }
+  newRecipe(){
+    this.setState({newRecipeIsVisible: true});
+  }
+  submitNewRecipe(){
+
+  }
   render() {
     return (
       <div className="App">
@@ -42,13 +48,14 @@ class App extends Component {
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/>
         <link rel="stylesheet" href="https://unpkg.com/@material-ui/core/umd/material-ui.development.js"/>
         <header className="App-header">
-          <AppBar color="primary" className="inner">
+          <AppBar color="primary" className="inner" position="relative">
             <h1 className="App-logo">Recipe App</h1>
           <Search className="search" handleSearch={this.handleChange}/>
         </AppBar>
         </header>
-        <NewRecipe />
+        <NewRecipe isVisible={this.state.newRecipeIsVisible} submit={this.submitNewRecipe} />
         <RecipeList recipes={this.props.recipes} />
+        <Button onClick={this.newRecipe} style={{position: 'fixed', bottom: '0', right: '0', margin: '0 3rem 3rem 0'}} color='primary' variant='fab'>+</Button>
       </div>
     );
   }

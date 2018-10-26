@@ -10,9 +10,9 @@ const Search = ({handleSearch}) => {
   //   <button type="submit" className="search-button">Search</button>
   // </form>
   <div>
-  <TextField placeholder='search recipes' margin='dense'/>
-  <Button variant="raised" color='secondary'>Submit</Button>
-</div>
+    <TextField style={{backgroundColor: 'white'}} placeholder='search recipes' margin='dense'/>
+    <Button variant="contained" color='secondary'>Submit</Button>
+  </div>
 )};
 
 export default Search;

@@ -4,15 +4,22 @@ import {  FormControl,
           FormControlLabel,
           FormGroup,Input,
           FormLabel} from '@material-ui/core'
-
-class Recipe extends Component {
+import {  Divider,
+          Typography,
+          Button,
+          BottomNav,IconButton,
+          Card
+          } from '@material-ui/core'
+import {Plus}  from '@material-ui/icons'
+class NewRecipe extends Component {
   constructor(props){
     super(props);
     this.state = {
       name: '',
       subtitle: '',
       steps: [''],
-      ingredients: [{ingredient: '', amount: null, units: null}]
+      ingredients: [{ingredient: '', amount: null, units: null}],
+      isVisible: this.props.isVisible
     }
   }
   updateName = (e)=>{
@@ -55,18 +62,30 @@ class Recipe extends Component {
     this.setState({ingredients: ingredients})
   }
   render(){
+    let style ={
+      padding: '1rem',
+      marginTop: '4rem',
+      maxWidth: '40rem',
+      margin: 'auto',
+      textAlign: 'left',
+      display: this.state.isVisible ? 'block' : 'none'
+    }
     return (
-    <FormControl action="" className="new-recipe">
+    <Card style={style} className="new-recipe">
       <FormGroup className="recipe-header">
+        <FormLabel>Recipe Name</FormLabel>
         <Input type="text" className="recipe-name" onKeyUp={this.updateName}/>
+        <FormLabel>Subtitle</FormLabel>
         <Input type="text" className="recipe-subtitle" onKeyUp={this.updateSubtitle}/>
       </FormGroup>
     <FormGroup className="recipe-body">
+      <FormLabel>Instructions</FormLabel>
       <FormGroup className="recipe-steps">
         { this.state.steps.map((step,i) =>
           <Input onKeyUp={(e)=>(this.updateStep(i,e))} type="text" className="recipe-step" key={i} placeholder="next step..."/>)}
-        <button type="button" className="add-step" onClick={this.addStep}>+</button>
+        <Button variant="fab" onClick={this.addStep}>+</Button>
       </FormGroup>
+      <FormLabel>Ingredients</FormLabel>
       <FormGroup className="recipe-ingredients">
         { this.state.ingredients.map((ingredient,i) =>
           <div key={i} className="recipe-ingredient">
@@ -75,11 +94,12 @@ class Recipe extends Component {
             <Input className="ingredient-units" onKeyUp={(e)=>(this.updateIngredient(e,i, 'units'))} type="text" placeholder="units..."/>
           </div>
         )}
-        <button type="button" className="add-ingredient" onClick={this.addIngredient}>+</button>
+        <Button variant='fab' onClick={this.addIngredient}>+</Button>
       </FormGroup>
     </FormGroup>
-    </FormControl>
+    <Button variant='text'>SUBMIT</Button>
+  </Card>
   )}
 }
 
-export default Recipe;
+export default NewRecipe;
