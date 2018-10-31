@@ -1,33 +1,38 @@
-import {CREATE_RECIPE_BEGIN,CREATE_RECIPE_SUCCESS,CREATE_RECIPE_FAILURE} from '../../types'
+import {
+  CREATE_RECIPE_BEGIN,
+  CREATE_RECIPE_SUCCESS,
+  CREATE_RECIPE_FAILURE} from '../../types'
+  import {recipes} from '../../../api-controllers'
+  import { fetchRecipes } from './FetchAll';
 
-
-export const createRecipe = ()=> dispatch =>{
-  dispatch(createRecipeBegin());
-  // return create(endpoints.recipe.getAll())
-  //         .then(handleErrors)
-  //         .then(res => res.json())
-  //         .then(json => {
-  //           dispatch(createRecipeSuccess(json.recipe));
-  //           return json.recipe;
-  //         })
-  //         .catch(error => dispatch(createRecipeFailure(error)))
+export const createRecipe = (recipe)=> dispatch =>{
+  dispatch(createRecipeBegin(recipe));
+  return recipes.create(recipe)
+          .then(res => res.json())
+          .then(json => {
+            dispatch(createRecipeSuccess(json));
+            return json;
+          })
+          .catch(error => dispatch(createRecipeFailure(error)))
 
 }
-export const createRecipeBegin = () =>({
-  type: CREATE_RECIPE_BEGIN
+export const createRecipeBegin = (recipe) =>({
+  type: CREATE_RECIPE_BEGIN,
+  payload: recipe
 })
 export const createRecipeSuccess = (recipe) =>({
   type: CREATE_RECIPE_SUCCESS,
-  payload: { recipe }
+  payload: recipe,
+  message: `${recipe.name} created successfully!`
 })
-export const createRecipeFailure = (error) =>({
+export const createRecipeFailure = () =>({
   type: CREATE_RECIPE_FAILURE,
-  payload: { error }
+  payload: 'Something went wrong creating the recipe'
 })
 
 function handleErrors(response) {
   if (!response.ok) {
-    throw Error(response.statusText);
+    return (dispatch) => dispatch(createRecipeFailure())
   }
   return response;
 }

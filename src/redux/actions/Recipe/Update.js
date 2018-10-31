@@ -1,4 +1,7 @@
-import {UPDATE_RECIPE_BEGIN,UPDATE_RECIPE_SUCCESS,UPDATE_RECIPE_FAILURE} from '../../types'
+import {
+  UPDATE_RECIPE_BEGIN,
+  UPDATE_RECIPE_SUCCESS,
+  UPDATE_RECIPE_FAILURE} from '../../types'
 
 export const updateRecipe = ()=> dispatch =>{
   dispatch(updateRecipeBegin());
@@ -11,8 +14,9 @@ export const updateRecipe = ()=> dispatch =>{
   //         })
   //         .catch(error => dispatch(updateRecipeFailure(error)))
 }
-export const updateRecipeBegin = () =>({
-  type: UPDATE_RECIPE_BEGIN
+export const updateRecipeBegin = (id) =>({
+  type: UPDATE_RECIPE_BEGIN,
+  payload: id
 })
 export const updateRecipeSuccess = (recipe) =>({
   type: UPDATE_RECIPE_SUCCESS,

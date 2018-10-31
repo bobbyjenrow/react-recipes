@@ -1,5 +1,5 @@
 import React from 'react';
-import './RecipeTag.css';
+// import './RecipeTag.css';
 
 
 const RecipeTag = ({tag}) => (

@@ -1,9 +1,17 @@
-import { UPDATE_FILTER } from '../types'
+import { UPDATE_SEARCH_FILTER } from '../types'
 
-export default (state = {}, action)=>{
+const initialState = {
+  search: ''
+}
+
+export default (state = initialState, action)=>{
   switch(action.type){
-    case UPDATE_FILTER:
-      return Object.assign({}, state, action.payload);
+    case UPDATE_SEARCH_FILTER:
+    console.log(action);
+      return {
+        ...state,
+        search: action.payload
+      };
     default:
       return state
   }

@@ -1,83 +1,89 @@
 import React, {Component} from 'react';
 // import PropTypes from 'prop-types';
+import { reduxForm, Field, FieldArray } from 'redux-form'
+// import './NewRecipe.css'
 
-import './NewRecipe.css'
-
-class Recipe extends Component {
-  constructor(props){
-    super(props);
-    this.state = {
-      name: '',
-      subtitle: '',
-      steps: [''],
-      ingredients: [{ingredient: '', amount: null, units: null}]
-    }
-  }
-  updateName = (e)=>{
-    this.setState({name: e.target.value});
-  }
-  updateSubtitle = (e)=>{
-    this.setState({subtitle: e.target.value});
-  }
-  addStep = ()=>{
-    let newState = this.state.steps;
-    newState.push('')
-    this.setState({steps: newState})
-  }
-  updateStep = (inc,e)=>{
-    let steps = [...this.state.steps];
-    let step = e.target.value;
-    steps[inc] = step;
-    this.setState({steps: steps});
-  }
-  addIngredient = () =>{
-    let newIngredient = {ingredient: null, amount: null, units: null};
-    let newState = this.state.ingredients;
-    newState.push(newIngredient);
-    this.setState({ingredients: newState})
-  }
-  updateIngredient(e, i, type){
-    let value = e.target.value;
-    let ingredients = this.state.ingredients;
-    switch (type) {
-      case 'ingredient':
-        ingredients[i].ingredient = value;
-        break;
-      case 'amount':
-        ingredients[i].amount = value;
-        break;
-      case 'units':
-        ingredients[i].units = value;
-        break;
-    }
-    this.setState({ingredients: ingredients})
-  }
-  render(){
+const newRecipe = ({handleSubmit, pristine, reset, submitting}) => {
     return (
-    <form action="" className="new-recipe">
-      <div className="recipe-header">
-        <input type="text" className="recipe-name" onKeyUp={this.updateName}/>
-        <input type="text" className="recipe-subtitle" onKeyUp={this.updateSubtitle}/>
-      </div>
-    <div className="recipe-body">
-      <div className="recipe-steps">
-        { this.state.steps.map((step,i) =>
-          <input onKeyUp={(e)=>(this.updateStep(i,e))} type="text" className="recipe-step" key={i} placeholder="next step..."/>)}
-        <button type="button" className="add-step" onClick={this.addStep}>+</button>
-      </div>
-      <div className="recipe-ingredients">
-        { this.state.ingredients.map((ingredient,i) =>
-          <div key={i} className="recipe-ingredient">
-            <input className="ingredient-name" onKeyUp={(e)=>(this.updateIngredient(e,i, 'ingredient'))} type="text" placeholder="next ingredient..."/>
-            <input className="ingredient-amount" onKeyUp={(e)=>(this.updateIngredient(e,i, 'amount'))} type="text" placeholder="amount..."/>
-            <input className="ingredient-units" onKeyUp={(e)=>(this.updateIngredient(e,i, 'units'))} type="text" placeholder="units..."/>
-          </div>
-        )}
-        <button type="button" className="add-ingredient" onClick={this.addIngredient}>+</button>
-      </div>
-    </div>
+    <form onSubmit={handleSubmit} className="new-recipe" >
+      <label className="label">Title</label>
+        <Field name="name" component="input" type="text" className="new-recipe-title" placeholder="recipe title..."/>
+      <label className="label">Subtitle</label>
+        <Field name="subtitle" component="input" type="text" className="new-recipe-subtitle" placeholder="recipe subtitle..."/>
+        <FieldArray name="ingredients" component={renderIngredients} />
+        <FieldArray name="instructions" component={renderInstructions} />
+      <button type="submit" className="button is-link">Submit</button>
     </form>
   )}
-}
 
-export default Recipe;
+const renderIngredients = ({fields, meta:{error, submitFailed}}) => (
+  <ul>
+  <label htmlFor=""><h3>Ingredients</h3></label>
+
+    {
+      fields.map((ingredient,i)=>(
+        <li className="new-ingredient-item" key={i}>
+          <Field name={`${ingredient}.name`} type="text" component={renderField} label={`Ingredient Name`}  />
+          <Field name={`${ingredient}.amount`} type="text" component={renderField} label={`Amount`}  />
+          <Field name={`${ingredient}.units`} type="text" component={renderField} label={`Units`}  />
+          <button type="button" title="Remove Ingredient" onClick={()=> fields.remove(i)}>Remove</button>
+        </li>
+      ))
+    }{error &&
+    <li className="error">
+      {error}
+    </li>}
+    <li>
+    <button type="button" title="Add Ingredient" onClick={()=> fields.push()}>Add Ingredient</button>
+    {submitFailed &&
+      error &&
+      <span>
+      {error}
+      </span>}
+    </li>
+  </ul>
+)
+
+const renderInstructions = ({fields, meta:{error, submitFailed}}) => (
+  <ul>
+    <label htmlFor=""><h3>Instructions</h3></label>
+    <li>
+    <button type="button" title="Add Step" onClick={()=> fields.push()}>Add Step</button>
+      {submitFailed &&
+        error &&
+        <span>
+          {error}
+        </span>}
+    </li>
+    {
+      fields.map((step,i)=>(
+        <li className="new-instruction-item" key={i}>
+        <Field name={`${step.content}`} type="text" component={renderField} label={`Step ${i + 1}`}  />
+        <button type="button" title="Remove Step" onClick={()=> fields.remove(i)} />
+        </li>
+      ))
+    }{error &&
+      <li className="error">
+        {error}
+      </li>}
+  </ul>
+)
+const renderField = ({ input, label, type, meta: { touched, error } }) =>(
+  <div>
+    <label>
+      {label}
+    </label>
+    <div>
+      <input {...input} type={type} placeholder={label} />
+      {touched &&
+        error &&
+        <span>
+          {error}
+        </span>}
+    </div>
+  </div>
+)
+
+export default reduxForm({
+  form: 'newRecipe'
+})(newRecipe);
