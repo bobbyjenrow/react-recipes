@@ -1,21 +1,47 @@
 import React, { Component } from 'react';
 import RecipeTag from './RecipeTag';
+import styled from 'react-emotion';
+import {css} from 'emotion'
 // import './Recipe.css';
+
+const CardContainer = styled('article')`
+  width: 350px;
+  border-radius: 5px;
+  transition: 0.5s ease-out;
+  box-shadow: 0 5px 8px 2px rgba(24,24,24,50%);
+  &:hover{
+    box-shadow: 0 5px 10px 3px rgba(24,24,24,50%);
+  }
+`
+const contentSpacing = css(`
+  padding: .5rem 1rem;
+`)
+const CardHeader = styled('div')`
+${contentSpacing}
+`
+const CardBody = styled('div')`
+${contentSpacing}
+
+`
+const CardFooter = styled('div')`
+${contentSpacing}
+
+`
 
 class Recipe extends Component {
   render() {
     const {recipe: {_id,name,subtitle,ingredients,instructions,tags,author}} = this.props;
     return (
-      <div className="recipe">
-        <div className="recipe-header">
+      <CardContainer className="recipe">
+        <CardHeader className="recipe-header">
           <h3 className="header-name">
             {name}
           </h3>
           <h5 className="header-subtitle">
             {subtitle}
           </h5>
-        </div>
-        <div className="recipe-body">
+        </CardHeader>
+        <CardBody className="recipe-body">
           <div className="body-instructions">
             <ol>
           </ol>
@@ -28,8 +54,8 @@ class Recipe extends Component {
               </li>)}
             </ul>
           </div>
-        </div>
-        <div className="recipe-footer">
+        </CardBody>
+        <CardFooter className="recipe-footer">
           <div className="footer-tags">
             <ul>
             {
@@ -45,8 +71,8 @@ class Recipe extends Component {
           <button className='update-button'>
             Update
           </button>
-        </div>
-      </div>
+        </CardFooter>
+      </CardContainer>
     );
   }
 

@@ -6,8 +6,6 @@ TODO: Fix Search filter bugs and add debounce.
 
 TODO: Create content filter by tag.
 
-TODO: Style New Recipe section & Create a toggle for it. Add Submit Button.
+TODO: Flesh out styles. (Still more to do)
 
-TODO: Flesh out styles.
-
-TODO: Create express API.
+DONE Create express API.
