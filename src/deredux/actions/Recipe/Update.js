@@ -3,7 +3,7 @@ import {
   UPDATE_RECIPE_SUCCESS,
   UPDATE_RECIPE_FAILURE} from '../../types'
 
-export const updateRecipe = ()=> dispatch =>{
+export default const updateRecipe = ()=> dispatch =>{
   dispatch(updateRecipeBegin());
   // return update(endpoints.recipes.getAll())
   //         .then(handleErrors)

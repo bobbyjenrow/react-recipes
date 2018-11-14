@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
+import App from './recomponents/hoc/AppHOC';
 import * as serviceWorker from './serviceWorker';
 import {injectGlobal} from 'emotion'
 // redux
@@ -22,9 +22,10 @@ injectGlobal(`
 :root{
   /* Colors */
   --primary: #E27272;
-  --accent:  salmon;
-  --accent-l: color(salmon lightness(40%));
+  --accent:  #779F58;
+  --accent-l: color(#779F58 lightness(40%));
   --text: #6A6868;
+  --overlay: rgba(106,104,104,0.8);
   --background: #DEE3E7;
   /* Fonts */
   --base-font-size: 20px;

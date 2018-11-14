@@ -4,7 +4,7 @@ import {
   FETCH_RECIPE_FAILURE} from '../../types'
 import endpoints from '../../../endpoints'
 
-export const fetchRecipe = ()=> dispatch =>{
+export default const fetchRecipe = ()=> dispatch =>{
   dispatch(fetchRecipeBegin());
   // return fetch(endpoints.recipe.getAll())
   //         .then(handleErrors)

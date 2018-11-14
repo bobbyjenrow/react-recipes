@@ -1,6 +1,6 @@
 import {TOGGLE_NEW_RECIPE} from '../../types'
 
-export const toggleNewRecipe = () => dispatch => {
+export default const toggleNewRecipe = () => dispatch => {
         dispatch(toggle())
 }
 

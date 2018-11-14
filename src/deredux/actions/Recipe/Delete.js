@@ -4,7 +4,7 @@ import {
   DELETE_RECIPE_FAILURE} from '../../types'
 import {recipes} from '../../../api-controllers'
 
-export const deleteRecipe = (id)=> dispatch =>{
+export default const deleteRecipe = (id)=> dispatch =>{
   dispatch(deleteRecipeBegin(id));
   return delete(recipes.delete(id))
           .then(handleErrors)

@@ -10,7 +10,7 @@ export const recipes = {
     },
     body: JSON.stringify(body)
   }),
-  fetchAll: () => fetch(endpoints.recipes),
+  getAll: () => fetch(endpoints.recipes, {method: 'GET'}),
   update: (body) =>
     fetch(`${endpoints.recipes}/${body._id}`, {
     method: 'POST',

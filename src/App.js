@@ -17,7 +17,7 @@ import { createRecipe } from './redux/actions/Recipe/Create'
 import { updateRecipe } from './redux/actions/Recipe/Update'
 import { deleteRecipe } from './redux/actions/Recipe/Delete'
 import { toggleNewRecipe } from './redux/actions/Recipe/ToggleNew'
-
+import {BrowserRouter as Router} from 'react-router-dom'
 
 const StyledHeader = styled('header')`
   background-color: var(--primary);
@@ -88,7 +88,7 @@ class App extends Component {
   render() {
     const {dispatch,isNewRecipeVisible} = this.props;
     return (
-      <div className="App">
+      <Router className="App">
         <StyledHeader className="app-header">
             <h1 className="App-logo">Recipe App</h1>
           <Search className="search" handleSearch={this.handleSearchChange}/>
@@ -108,7 +108,7 @@ class App extends Component {
           }
         </NewRecipeButton>
         </main>
-      </div>
+      </Router>
     );
   }
 }

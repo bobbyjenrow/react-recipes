@@ -5,7 +5,7 @@ import {
   import {recipes} from '../../../api-controllers'
   import { fetchRecipes } from './FetchAll';
 
-export const createRecipe = (recipe)=> dispatch =>{
+export default const createRecipe = (recipe)=> dispatch =>{
   dispatch(createRecipeBegin(recipe));
   return recipes.create(recipe)
           .then(res => res.json())

@@ -4,7 +4,7 @@ import {
   FETCH_RECIPES_FAILURE} from '../../types'
 import { recipes } from '../../../api-controllers'
 
-export const fetchRecipes = ()=> dispatch =>{
+export default const fetchRecipes = ()=> dispatch =>{
     dispatch(fetchRecipesBegin())
     return recipes.fetchAll()
       .then(response => response.json())
