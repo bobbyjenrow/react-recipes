@@ -3,10 +3,12 @@ import logger from 'redux-logger'
 import thunk from 'redux-thunk';
 import {recipesReducer} from './recipes';
 import {searchReducer} from './search'
+import {reducer as formReducer} from 'redux-form'
 
 const rootReducer = combineReducers({
   recipes: recipesReducer,
-  search: searchReducer
+  search: searchReducer,
+  form: formReducer
 })
 
 export default function configureStore(initialState = {}){

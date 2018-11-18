@@ -56,7 +56,7 @@ const getReducer = createReducer({
   success: false
 });
 const toggleNew = createReducer({
-  [toggleNewRecipe]: (state) => ({...state,})
+  [toggleNewRecipe]: (state) => ({...state, isVisible: !state.isVisible})
 },{
   isVisible: false
 })

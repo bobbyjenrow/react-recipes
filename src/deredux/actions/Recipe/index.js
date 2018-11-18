@@ -1,6 +1,0 @@
-export {default as create} from './Create'
-export {default as delete} from './Delete'
-export {default as getAll} from './FetchAll'
-export {default as getOne} from './FetchOne'
-export {default as update} from './Update'
-export {default a toggleNew} from './ToggleNew'

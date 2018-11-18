@@ -1,6 +1,6 @@
 import React from 'react';
 import Recipe from '../pres/Recipe';
-import App from '../../Appy'
+import App from '../../App'
 import { compose, withState, withHandlers, lifecycle } from 'recompose';
 import {connect} from 'react-redux'
 import styled from 'react-emotion'
@@ -20,7 +20,8 @@ const mapStateToProps = state => ({
      const searchText = searchFields.join(" ").toLowerCase();
      console.log(searchText)
      return searchText.includes(state.search.text.toLowerCase())
-   })
+   }),
+   isNewRecipeActive: state.recipes.toggleNew.isVisible
 });
 const lifecycles = lifecycle({
   componentDidMount(){

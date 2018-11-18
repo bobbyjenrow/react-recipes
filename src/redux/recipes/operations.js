@@ -18,9 +18,11 @@ import {
 // ADD
 export const addRecipe = (recipe)=> dispatch =>{
   dispatch(addRecipeStart(recipe));
+  console.log(recipe)
   return recipes.create(recipe)
           .then(res => res.json())
           .then(json => {
+            console.log(json)
             dispatch(addRecipeSuccess(json));
             return json;
           })

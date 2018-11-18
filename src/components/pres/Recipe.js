@@ -28,14 +28,11 @@ color: var(--background);
 `
 class Recipe extends Component{
   render(){
-    const {handleDelete,recipe: {_id,name,body,subtitle,ingredients,instructions,tags,author}} = this.props
-    const genRandom = () => Math.floor(Math.random() * 200);
-    const random = genRandom();
-    const imageUrl = `${unsplash800}/?sig=${random}`;
+    const {handleDelete,recipe: {_id,name,body,subtitle,ingredients,instructions,tags,author,imageUrl}} = this.props
     return (
       <StyledCard className="recipe">
         <Link to={`/recipes/${name}`}>
-          <ImageHeader imageUrl={imageUrl} >
+          <ImageHeader imageUrl={imageUrl || 'https://source.unsplash.com/collection/251966'} >
           <h3>{name}</h3>
           <h5>{subtitle}</h5>
           </ImageHeader>

@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './recomponents/hoc/AppHOC';
+import App from './components/hoc/AppHOC';
 import * as serviceWorker from './serviceWorker';
 import {injectGlobal} from 'emotion'
 // redux
@@ -8,7 +8,7 @@ import { Provider } from 'react-redux';
 import configureStore from './redux/store';
 
 ReactDOM.render(
-  <Provider store={configureStore()}>
+<Provider store={configureStore()}>
   <App />
 </Provider>
   , document.getElementById('root'));
@@ -27,6 +27,11 @@ injectGlobal(`
   --text: #6A6868;
   --overlay: rgba(106,104,104,0.8);
   --background: #DEE3E7;
+
+  --warn: yellow;
+  --error: red;
+  --info: cyan;
+  --success: green;
   /* Fonts */
   --base-font-size: 20px;
   --font-family-body: 'Raleway', sans-serif;

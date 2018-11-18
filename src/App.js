@@ -2,22 +2,18 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom'
 import logo from './logo.svg';
 // import './App.css';
-import RecipeList from './components/RecipeList'
+import RecipeList from './components/pres/RecipeList'
 import Search from './components/Search'
-import { connect } from 'react-redux';
-import {reset} from 'redux-form'
+import AppHOC from './components/hoc/AppHOC'
+import RecipePage from './components/pres/RecipePage'
 import styled from 'react-emotion'
 //Components
-import NewRecipe from './components/NewRecipe'
-import data from "./mocks/store.js";
-// Redux
-import { fetchRecipes } from './redux/actions/Recipe/FetchAll'
-import { updateSearchFilter } from './redux/actions/Filter/Update'
-import { createRecipe } from './redux/actions/Recipe/Create'
-import { updateRecipe } from './redux/actions/Recipe/Update'
-import { deleteRecipe } from './redux/actions/Recipe/Delete'
-import { toggleNewRecipe } from './redux/actions/Recipe/ToggleNew'
-import {BrowserRouter as Router} from 'react-router-dom'
+import NewRecipe from './components/pres/NewRecipe'
+import NewRecipeButton from './components/pres/NewRecipeButton'
+import AppHeader from './components/site/AppHeader'
+
+import {BrowserRouter as Router, Switch, Route, withRouter} from 'react-router-dom'
+
 
 const StyledHeader = styled('header')`
   background-color: var(--primary);
@@ -33,95 +29,25 @@ const StyledHeader = styled('header')`
     margin: 0;
   }
 `
-const NewRecipeButton = styled('button')`
-  position: fixed;
-  right: 0;
-  bottom: 0;
-  margin: 0 2rem 2rem 0;
-
-  background-color: var(--primary);
-  color: var(--background);
-  font-size: 2rem;
-  border-radius: 1000px;
-  padding: 1rem;
-  border: 0;
-  box-shadow: var(--shadow-base);
-  outline: none;
-  transition: 1s ease-out;
-  &:hover{
-    cursor: pointer;
-    color: var(--primary);
-    background-color: var(--background);
-    box-shadow: var(--shadow-hover);
-  }
+const AppContainer = styled('div')`
+  min-height: 100%;
+  display: flex;
+  flex-flow: column;
 `
-//Test Data
 
-
-class App extends Component {
-  componentDidMount(){
-    this.props.dispatch(fetchRecipes())
-  }
-  handleNewRecipe = async (values) => {
-    await this.props.dispatch(createRecipe(values))
-    this.props.dispatch(reset('newRecipe'))
-    await this.props.dispatch(fetchRecipes())
-    this.props.dispatch(toggleNewRecipe())
-  };
-  handleRecipeDelete = async (id) => {
-    await this.props.dispatch(deleteRecipe(id))
-    await this.props.dispatch(fetchRecipes())
-    await this.props.dispatch(fetchRecipes())
-  }
-  handleRecipeUpdate = async (body) => {
-    await this.props.dispatch(updateRecipe(body))
-    await this.props.dispatch(fetchRecipes())
-  }
-  toggleNewRecipe = () => {
-    this.props.dispatch(toggleNewRecipe())
-    window.scrollTo(0,0)
-  }
-  handleSearchChange = (e) => {
-    this.props.dispatch(updateSearchFilter(e.target.value))
-    console.log(JSON.stringify(this.props.filter))
-  }
-  render() {
-    const {dispatch,isNewRecipeVisible} = this.props;
+const App = ({addRecipe,recipes,isNewRecipeActive,handleDelete,handleUpdate,toggleNewRecipe,updateSearchFilter}) => {
     return (
       <Router className="App">
-        <StyledHeader className="app-header">
-            <h1 className="App-logo">Recipe App</h1>
-          <Search className="search" handleSearch={this.handleSearchChange}/>
-        </StyledHeader>
-        <main className="main-content">
-        { isNewRecipeVisible ?
-          <NewRecipe onSubmit={this.handleNewRecipe} />
-          : null
-        }
-        <RecipeList
-          handleDelete={this.handleRecipeDelete}
-          handleUpdate={this.handleRecipeUpdate}
-          recipes={this.props.recipes} />
-        <NewRecipeButton onClick={this.toggleNewRecipe} type="button" title="Add new recipe!" className="new-recipe-button">
-          {
-            isNewRecipeVisible ? '-' : '+'
-          }
-        </NewRecipeButton>
-        </main>
+        <AppContainer>
+          <AppHeader handleSearch={updateSearchFilter}/>
+          {isNewRecipeActive && <NewRecipe onSumbit={addRecipe} />}
+          <Switch>
+            <Route exact to="/" render={()=><RecipeList recipes={recipes}/>} />
+          </Switch>
+          <NewRecipeButton isActive={isNewRecipeActive} toggleNewRecipe={toggleNewRecipe} />
+        </AppContainer>
       </Router>
     );
-  }
 }
-        // <RecipeList recipes={this.props.recipes} />
-// const mapDispatchToProps = dispatch => ({
-//   updateFilter: () => dispatch(updateFilter())
-// })
-const mapStateToProps = state => ({
-  recipes: state.recipe.items,
-  isNewRecipeVisible: state.recipe.isNewRecipeVisible,
-  loading: state.recipe.isFetching,
-  error: state.recipe.error
-  // filter: state.filter.search
-})
 
-export default connect(mapStateToProps)(App);
+export default App;

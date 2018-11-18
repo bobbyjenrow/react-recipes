@@ -27,6 +27,8 @@ ${contentSpacing}
 `
 export const StyledForm = styled('form')`
   box-shadow: var(--shadow-base);
+  width: 100%;
+  height: 100%;
   max-width: 350px;
   margin: 1rem auto;
   padding: 1rem;
@@ -48,5 +50,5 @@ export const StyledFormSection = styled('section')`
 export const StyledInputLine = styled('div')`
   display: flex;
   flex-flow: column;
-  align-items: left;
+
 `

@@ -29,6 +29,7 @@ ${contentSpacing}
 `
 
 class Recipe extends Component {
+
   render() {
     const {recipe: {_id,name,subtitle,ingredients,instructions,tags,author}} = this.props;
     return (
