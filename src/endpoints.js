@@ -1,4 +1,4 @@
-const urlBase = process.env.BASE_URL || 'http://localhost:5000';
+const urlBase = 'https://dashboard.heroku.com/apps/foodie-apps';
 const unsplash = process.env.UNSPLASH_API_URL;
 const unsplashKey = process.env.UNSPLASH_API_KEY;
 
